@@ -43,7 +43,7 @@ function Navbar() {
                         event.preventDefault()
                         event.target.reset();
                         ContextItems.updateQuery(inputData)
-                        navigate('/search results');
+                        navigate(`/search_results/${inputData}`);
                     }}>
                         <input placeholder="Search your favorite show" className="search-box" type="text" onChange={(event) =>
                             setInputData(event.target.value)

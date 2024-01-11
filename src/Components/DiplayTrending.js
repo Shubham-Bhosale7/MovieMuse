@@ -87,7 +87,7 @@ function LandingPoster(props) {
                                             }).sort(ContextItems.arrangeShow).slice(0, 6).map((element) => {
                                                 return (
                                                     <>
-                                                        <Link onClick={() => { TransferData(element, navigate) }} to="/elementinfo" key={element.netflix_id} className="initial-poster-item info-to-store">
+                                                        <Link onClick={() => { TransferData(element, navigate) }} to={`/information/${element.netflix_id}`} key={element.netflix_id} className="initial-poster-item info-to-store">
                                                             <div className="initial-poster-item-info-poster-container">
                                                                 <div className="initial-poster-item-info">
                                                                     <div className="title-container">
@@ -188,7 +188,7 @@ function LandingPoster(props) {
                                         return element.poster.length > 3 && element.title_type === 'movie'
                                     }).slice(0, 50).map((element) => {
                                         return (
-                                            <Link style={{ width: 250 }} onClick={() => { TransferData(element) }} to="/elementinfo" key={element.netflix_id} className="display-movie-item info-to-store">
+                                            <Link style={{ width: 250 }} onClick={() => { TransferData(element) }} to={`/information/${element.netflix_id}`} key={element.netflix_id} className="display-movie-item info-to-store">
                                                 <div className="display-movie-poster">
                                                     <img src={element.poster} alt="poster" />
                                                 </div>
@@ -226,7 +226,45 @@ function LandingPoster(props) {
                                         return element.poster.length > 3 && element.title_type === 'series'
                                     }).slice(0, 50).map((element) => {
                                         return (
-                                            <Link style={{ width: 250 }} onClick={() => { TransferData(element) }} to="/elementinfo" key={element.netflix_id} className="display-series-item info-to-store">
+                                            <Link style={{ width: 250 }} onClick={() => { TransferData(element) }} to={`/information/${element.netflix_id}`} key={element.netflix_id} className="display-series-item info-to-store">
+                                                <div className="display-series-poster">
+                                                    <img src={element.poster} alt="poster" />
+                                                </div>
+                                                <div className="display-series-info">
+                                                    <div className="display-series-name-rating-container">
+                                                        <div className="display-series-name">
+                                                            {element.title}
+                                                        </div>
+                                                        <div className="display-series-rating">
+                                                            {element.rating}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </Link>
+                                        )
+                                    })
+                                }
+                            </Slider>
+                        </div>
+
+                        <div className="display-series-container">
+                            <div className="display-series-heading">
+                                <div className="display-series-heading-title">
+                                    Recents
+                                </div>
+                                <div className="display-series-heading-show-more">
+                                    <Link to="/series">
+                                        &rarr;
+                                    </Link>
+                                </div>
+                            </div>
+                            <Slider {...ContextItems.movieAndSeriesSettings}>
+                                {
+                                    ContextItems.Shuffler(props.data).filter((element) => {
+                                        return element.poster.length > 3 && element.title_type === 'series'
+                                    }).slice(0, 50).map((element) => {
+                                        return (
+                                            <Link style={{ width: 250 }} onClick={() => { TransferData(element) }} to={`/information/${element.netflix_id}`} key={element.netflix_id} className="display-series-item info-to-store">
                                                 <div className="display-series-poster">
                                                     <img src={element.poster} alt="poster" />
                                                 </div>

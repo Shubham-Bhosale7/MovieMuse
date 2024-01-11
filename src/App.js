@@ -44,10 +44,10 @@ function App() {
             <Route exact path="/" element={<DisplayTrending setData={setData} limit = {limit} setLimit = {setLimit} data={data} setProgress={setProgress} setLoadDetector={setLoadDetector} />} />
             <Route exact path="/movies" element={<Movie data={data} setData={setData} limit={limit} setLimit={setLimit} setProgress={setProgress} setLoadDetector={setLoadDetector} />} />
             <Route exact path="/series" element={<Series data={data} setData={setData} limit={limit} setLimit={setLimit} setProgress={setProgress} setLoadDetector={setLoadDetector} />} />
-            <Route exact path="/elementinfo" element={<ElementInfo setProgress={setProgress} setLoadDetector={setLoadDetector} />} />
+            <Route exact path="/information/:netflix_id" element={<ElementInfo setProgress={setProgress} setLoadDetector={setLoadDetector} />} />
             <Route exact path="/related movies" element={<MoreRelatedMovies setProgress={setProgress} setLoadDetector={setLoadDetector} />} />
             <Route exact path="/related series" element={<MoreRelatedSeries setProgress={setProgress} setLoadDetector={setLoadDetector} />} />
-            <Route exact path="/search results" element={<SearchQueryResults setProgress={setProgress} setLoadDetector={setLoadDetector} />} />
+            <Route exact path="/search_results/:query" element={<SearchQueryResults setProgress={setProgress} setLoadDetector={setLoadDetector} />} />
             <Route exact path="/error" element={<ErrorPage/>} />
           </Routes>
           <Footer loadDetector={loadDetector} />

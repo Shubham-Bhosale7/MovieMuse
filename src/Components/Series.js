@@ -30,7 +30,7 @@ function Series(props) {
                                         return element.title_type === 'series'
                                     }).map((element) => {
                                         return (
-                                            <Link onClick={() => { TransferData(element) }} to="/elementinfo" key={element.netflix_id} className="series-item info-to-store">
+                                            <Link onClick={() => { TransferData(element) }} to={`/information/${element.netflix_id}`} key={element.netflix_id} className="series-item info-to-store">
                                                 <div className="series-poster">
                                                     {element.poster.length > 3 ? <img src={element.poster} alt="poster" /> : <img src={Server} alt="poster" />}
                                                 </div>

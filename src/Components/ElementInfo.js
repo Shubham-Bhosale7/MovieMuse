@@ -93,7 +93,7 @@ function ElementInfo(props) {
             <div className="element-info-container">
                 <div className="element-info">
                     <div className="movie-info carousel-element-info">
-                        <div to="/elementinfo" key={JSON.parse(sessionStorage.getItem('movieInfo')).netflix_id} className="selected-element-info">
+                        <div key={JSON.parse(sessionStorage.getItem('movieInfo')).netflix_id} className="selected-element-info">
                             <div className="element-info-poster-info-container">
                                 <div className="element-info-info">
                                     <div className="detailed-title">
@@ -188,7 +188,7 @@ function ElementInfo(props) {
                                             return element.title_type === 'movie'
                                         }).slice(0, 50).map((element) => {
                                             return (
-                                                <Link style={{ width: 250 }} onClick={() => { CallGenreAndDataOnClick(element) }} to="/elementinfo" key={element.netflix_id} className="display-movie-item info-to-store element-info-related-movies-series">
+                                                <Link style={{ width: 250 }} onClick={() => { CallGenreAndDataOnClick(element) }} to={`/information/${element.netflix_id}`} key={element.netflix_id} className="display-movie-item info-to-store element-info-related-movies-series">
                                                     <div className="display-movie-poster">
                                                         {element.poster.length > 3 ? <img src={element.poster} alt="poster" /> : <img src={Server} alt="poster" />}
                                                     </div>
@@ -232,7 +232,7 @@ function ElementInfo(props) {
                                             return element.title_type === 'series'
                                         }).slice(0, 50).map((element) => {
                                             return (
-                                                <Link style={{ width: 250 }} onClick={() => { CallGenreAndDataOnClick(element) }} to="/elementinfo" key={element.netflix_id} className="display-series-item info-to-store">
+                                                <Link style={{ width: 250 }} onClick={() => { CallGenreAndDataOnClick(element) }} to={`/information/${element.netflix_id}`} key={element.netflix_id} className="display-series-item info-to-store">
                                                     <div className="display-series-poster">
                                                         {element.poster.length > 3 ? <img src={element.poster} alt="poster" /> : <img src={Server} alt="poster" />}
                                                     </div>

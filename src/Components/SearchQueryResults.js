@@ -39,7 +39,7 @@ function SearchQueryResult(props) {
                 navigate('/error')
             }
         })()
-        return () => {}
+        return () => { }
     }, [ContextItems.query])
 
     function genEle() {
@@ -89,7 +89,7 @@ function SearchQueryResult(props) {
                                                     ContextItems.searchQueryResults.map((element) => {
                                                         return (
                                                             <>
-                                                                <Link onClick={() => { TransferData(element) }} to="/elementinfo" key={element.netflix_id} className="movie-item info-to-store">
+                                                                <Link onClick={() => { TransferData(element) }} to={`/information/${element.netflix_id}`} key={element.netflix_id} className="movie-item info-to-store">
                                                                     <div className="movie-poster">
                                                                         {element.poster.length > 3 ? <img src={element.poster} alt="poster" /> : <img src={Server} alt="poster" />}
                                                                     </div>
@@ -113,9 +113,12 @@ function SearchQueryResult(props) {
                                     </div>
                                 </>
                                 :
-                                        <div className='no-result-poster'>
-                                            <img src ={NoResultPoster}/>
-                                        </div>
+                                <div className='no-result-poster'>
+                                    <img src={NoResultPoster} />
+                                    <div className="back-to-start">
+                                        <Link className="back-to-start-link" to="/"><i className="fa-solid fa-chevron-left"></i> Back</Link>
+                                    </div>
+                                </div>
                         }
                     </>
                     :

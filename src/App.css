@@ -826,7 +826,8 @@ body {
   font-size:22px;
 }
 .back-to-start-link{
-  color:var(--text-color);
+  /* color:var(--text-color); */
+  color:#54b9c5;
 }
 .back-to-start-link i{
   font-size:18px;
