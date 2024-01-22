@@ -245,8 +245,9 @@ body {
   font-weight: 554;
   display: flex;
   justify-content: space-between;
-  padding: 0 10px;
+  /* padding: 0 10px; */
   letter-spacing: -0.3px;
+  align-items: center;
 }
 
 .wrapper-landing-poster {
@@ -257,8 +258,8 @@ body {
 .display-movie-poster,
 .display-series-poster,
 .element-info-poster {
-  height: 170px;
-  width: 240px;
+  height: 150px;
+  /* width: 240px; */
   overflow: hidden;
   border-radius: 10px;
 }
@@ -407,7 +408,7 @@ body {
 .display-movie-item,
 .display-series-item {
   width: 250px;
-  margin-right: 15px;
+  /* margin-right: 15px; */
 }
 
 .display-movie-item img,
@@ -729,7 +730,7 @@ body {
 }
 
 .variable-width .slick-slide {
-  margin: 0 15px;
+  margin: 0 5px;
 }
 
 .loading-home-container {
@@ -814,6 +815,7 @@ body {
   background-color: #3f3f3f;
   border-radius: 10px;
   animation: glow 2s linear infinite alternate;
+  margin:0 10px;
 }
 .no-result-poster,.error-poster-container{
   width: 100%;
@@ -835,6 +837,93 @@ body {
   position: relative;
   bottom: 1.1px;
   left: 4px;
+}
+.genera-container{
+  padding:0 2%;
+}
+.genera-heading{
+  padding: 10px 0;
+}
+.genera-box-container{
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  justify-items: center;
+  /* column-gap: 10px;
+  row-gap:20px; */
+  gap:20px
+}
+.genera-box,.flag-box{
+  max-width: 200px;
+  font-size:17px;
+  font-weight: 600;
+  width: 100%;
+  height: 135px;
+  /* margin:10px ; */
+  color: white;
+  background: red;
+  border-radius: 4px;
+  padding: 5px;
+  box-sizing: border-box;
+  display: block;
+  position: relative;
+  overflow: hidden;
+}
+.genera-box img{
+  position: absolute;
+  width:50%;
+  height:60%;
+  transform: rotate(27deg);
+  right:-10px;
+  bottom:-10px;
+}
+.action{
+  background-color: #FE0000;
+}
+.alien-sci-fi{
+  background-color: #148a08;
+}
+.anime{
+  background-color: #0F2167;
+}
+.animation{
+  background-color: #FF4B91;
+}
+.comedy{
+  background-color: #FF9800;
+}
+.documentaries{
+  background-color:#445D48;
+  background-color: #503C3C;
+}
+.horror-films{
+  background-color: #22092C;
+  background-color: #461959;
+}
+.dark-comedies{
+  background-color: #20262E;
+}
+.flag-container{
+  margin-top:2rem;
+}
+.flag-box{
+  background-color: transparent;
+  /* border:1px solid red; */
+  padding:0;
+}
+.flag-container img{
+  width:100%;
+  height:100%;
+}
+@media only screen and (max-width: 650px){
+  .genera-box-container{
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media only screen and (min-width: 650px) and (max-width: 1300px) {
+  .genera-box-container{
+    grid-template-columns: repeat(4, 1fr);
+  }
+  
 }
 @media only screen and (max-width: 490px) {
   .movie-container-loading {

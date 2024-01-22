@@ -1,29 +1,49 @@
-import React from 'react'
+import React, { useContext, useEffect } from 'react'
 import Server from "../Assets/server.png"
 import { Link } from 'react-router-dom'
 import TransferData from '../GeneralJs/TransferData'
 import { useNavigate } from 'react-router-dom'
 import fetchDataCaller from '../GeneralJs/FetchDataCaller'
+import { StorageContext } from '../Context/StorageContext'
 
 function Movie(props) {
     const navigate = useNavigate()
-    async function fetchMoreData() {
-        await props.setLimit(props.limit + 200)
-        fetchDataCaller(props.limit, props.setLimit, props.setLoadDetector, props.setProgress, props.setData, navigate)
+    const ContextItems = useContext(StorageContext)
+
+    function skeletonScreen(){
+        let widthOfScreen = window.innerWidth
+        let heightOfScreen = window.innerHeight
+
+
+
     }
+
+    async function fetchMoreData() {
+        // await props.setLimit(props.limit + 200)
+        // ContextItems.setLimit(200)
+        // fetchDataCaller(props.limit, props.setLimit, props.setLoadDetector, props.setProgress, props.setData, navigate)
+        // fetchDataCaller(ContextItems.limit, ContextItems.setLimit, ContextItems.setIsDataLoaded, props.setProgress, ContextItems.setData)
+        fetchDataCaller(ContextItems.setIsDataLoaded, props.setProgress, ContextItems.setData,ContextItems.movies, ContextItems.setMovies,ContextItems.series,  ContextItems.setSeries,ContextItems.trending, ContextItems.setTrending,ContextItems.recents, ContextItems.setRecents, ContextItems.offset, ContextItems.setOffset)
+    }
+
+    useEffect(() => { //try to set movies, series, and recents in a context state so we dont need to do same operation over and over, This can be done by fetching the resources and performing the necessary operations and setting the context
+        if (!ContextItems.isDataLoaded) {
+            fetchDataCaller(ContextItems.setIsDataLoaded, props.setProgress, ContextItems.setData,ContextItems.movies, ContextItems.setMovies,ContextItems.series,  ContextItems.setSeries,ContextItems.trending, ContextItems.setTrending,ContextItems.recents, ContextItems.setRecents, ContextItems.offset, ContextItems.setOffset)
+            ContextItems.setIsDataLoaded(true)
+        }
+    }, [])
 
     return (
         <>
+            {console.log('CONTEXT DATA: ', ContextItems.data)}
             {
-                props.data.length > 0 &&
+                ContextItems.movies.length > 0 &&
                 <>
                     <div className="movie-container">
                         <div className="wrapper-movie">
                             <div className="carousel-movie">
                                 {
-                                    props.data.filter((element) => {
-                                        return element.title_type === 'movie'
-                                    }).map((element) => {
+                                    ContextItems.movies.map((element) => {
                                         return (
                                             <>
                                                 <Link onClick={() => { TransferData(element) }} to={`/information/${element.netflix_id}`} key={element.netflix_id} className="movie-item info-to-store">

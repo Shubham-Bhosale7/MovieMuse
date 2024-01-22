@@ -1,42 +1,24 @@
-import React, {useContext, useEffect} from 'react'
+import React, { useContext } from 'react'
+import { StorageContext } from '../Context/StorageContext'
 import Server from "../Assets/server.png"
 import { Link } from 'react-router-dom'
 import TransferData from '../GeneralJs/TransferData'
-import { useNavigate } from 'react-router-dom'
-import fetchDataCaller from '../GeneralJs/FetchDataCaller'
-import { StorageContext } from '../Context/StorageContext'
 
-function Series(props) {
-    const navigate = useNavigate()
+
+function NewPrograms() {
     const ContextItems = useContext(StorageContext)
-
-
-    async function fetchMoreData() {
-        try {
-            fetchDataCaller(ContextItems.setIsDataLoaded, props.setProgress, ContextItems.setData,ContextItems.movies, ContextItems.setMovies,ContextItems.series,  ContextItems.setSeries,ContextItems.trending, ContextItems.setTrending,ContextItems.recents, ContextItems.setRecents, ContextItems.offset, ContextItems.setOffset)
-        } catch (error) {
-            console.log('ERROR',error)
-            navigate('/error')
-        }
-    }
-
-    useEffect(() => { //try to set movies, series, and recents in a context state so we dont need to do same operation over and over, This can be done by fetching the resources and performing the necessary operations and setting the context
-        if (!ContextItems.isDataLoaded) {
-            fetchDataCaller(ContextItems.setIsDataLoaded, props.setProgress, ContextItems.setData, ContextItems.movies, ContextItems.setMovies,ContextItems.series, ContextItems.setSeries,ContextItems.trending,  ContextItems.setTrending,ContextItems.recents, ContextItems.setRecents, ContextItems.offset, ContextItems.setOffset)
-            ContextItems.setIsDataLoaded(true)
-        }
-    }, [])
-
     return (
-        <>
+        <>{
+            console.log('INITIATED: ', ContextItems.trending)
+        }
             {
-                ContextItems.series.length > 0 &&
+                ContextItems.recents.length > 0 &&
                 <>
                     <div className="series-container">
                         <div className="wrapper-series">
                             <div className="carousel-series">
                                 {
-                                    ContextItems.series.map((element) => {
+                                    ContextItems.recents.map((element) => {
                                         return (
                                             <Link onClick={() => { TransferData(element) }} to={`/information/${element.netflix_id}`} key={element.netflix_id} className="series-item info-to-store">
                                                 <div className="series-poster">
@@ -59,16 +41,16 @@ function Series(props) {
                             </div>
                         </div>
                     </div>
-                    <div className="movie-show-more-btn-container">
+                    {/* <div className="movie-show-more-btn-container">
                         <button onClick={fetchMoreData} className="movie-show-more-btn">
                             <span>Show More</span>
                             <i className="fa-solid fa-angle-down"></i>
                         </button>
-                    </div>
+                    </div> */}
                 </>
             }
         </>
     )
 }
 
-export default Series
+export default NewPrograms

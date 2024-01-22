@@ -42,7 +42,7 @@ function Navbar() {
                     <form action="" onSubmit={async (event) => {
                         event.preventDefault()
                         event.target.reset();
-                        ContextItems.updateQuery(inputData)
+                        ContextItems.setQuery(inputData)
                         navigate(`/search_results/${inputData}`);
                     }}>
                         <input placeholder="Search your favorite show" className="search-box" type="text" onChange={(event) =>
@@ -62,7 +62,7 @@ function Navbar() {
                 <form action="" onSubmit={async (event) => {
                     event.preventDefault()
                     event.target.reset();
-                    ContextItems.updateQuery(inputData)
+                    ContextItems.setQuery(inputData)
                     navigate('/search results');
                     ContextItems.handleSearchIcon()
                 }}>
