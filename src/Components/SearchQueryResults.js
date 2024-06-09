@@ -19,14 +19,14 @@ function SearchQueryResult(props) {
             setCheckLoaded(false)
             props.setLoadDetector(false)
             props.setProgress(40)
-            // ContextItems.updateSearchQuery([])
-            // ContextItems.setSearchQueryResults([])
             let fetchedData = await FetchByQuery(query)
+            console.log('QUERY RESULT', fetchedData)
             fetchedData === null ? ContextItems.setSearchQueryResults([]) : ContextItems.setSearchQueryResults(fetchedData)
             props.setProgress(100)
             props.setLoadDetector(true)
             setCheckLoaded(true)
         } catch (error) {
+            props.setProgress(0)
             navigate('/error')
         }
     }
@@ -90,7 +90,7 @@ function SearchQueryResult(props) {
                                                     ContextItems.searchQueryResults.map((element) => {
                                                         return (
                                                             <>
-                                                                <Link onClick={() => { TransferData(element) }} to={`/information/${element.netflix_id}`} key={element.netflix_id} className="movie-item info-to-store">
+                                                                <Link onClick={() => { TransferData(navigate, element, ContextItems.setRelatedMovies, ContextItems.setRelatedSeries) }} to={`/information/${element.netflix_id}`} key={element.netflix_id} className="movie-item info-to-store">
                                                                     <div className="movie-poster">
                                                                         {element.poster.length > 3 ? <img src={element.poster} alt="poster" /> : <img src={Server} alt="poster" />}
                                                                     </div>

@@ -6,10 +6,6 @@ import { StorageContext } from '../Context/StorageContext'
 import Slider from "react-slick"
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { useEffect, useState } from 'react'
-import fetchDataCaller from '../GeneralJs/FetchDataCaller'
-import Shuffler from '../GeneralJs/Shuffler'
-import arrangeByRating from '../GeneralJs/ArrangeByRating'
 import actionPoster from "../Assets/action-poster.jpg"
 import sciFiPoster from "../Assets/sci-fi.png"
 import animationPoster from "../Assets/animation-poster.jpeg"
@@ -18,26 +14,13 @@ import comedyPoster from "../Assets/comedy-poster.jpg"
 import documentriesPoster from "../Assets/documentries-poster.jpg"
 import horrorFilmsPoster from "../Assets/horror-films-poster.jpg"
 import darkComedyPoster from "../Assets/dark-comedy-poster.jpg"
-import indianFlag from "../Assets/india.png"
-import usFlag from "../Assets/united-states.png"
-import chinaFlag from "../Assets/china.png"
-import japanFlag from "../Assets/japan.png"
-import koreaFlag from "../Assets/korea.jpg"
-import spainFlag from "../Assets/spain.png"
-import germanyFlag from '../Assets/german.png'
-import ukFlag from "../Assets/uk.jpg"
 import TransferGenera from '../GeneralJs/TransferGeneras'
 
-function LandingPoster(props) {
+
+function LandingPoster() {
     const ContextItems = useContext(StorageContext);
     const navigate = useNavigate()
 
-    useEffect(() => { //try to set movies, series, and recents in a context state so we dont need to do same operation over and over, This can be done by fetching the resources and performing the necessary operations and setting the context
-        if (!ContextItems.isDataLoaded) {
-            fetchDataCaller(ContextItems.setIsDataLoaded, props.setProgress, ContextItems.setData,ContextItems.movies, ContextItems.setMovies, ContextItems.series,ContextItems.setSeries,ContextItems.trending, ContextItems.setTrending,ContextItems.recents, ContextItems.setRecents, ContextItems.offset, ContextItems.setOffset)
-            ContextItems.setIsDataLoaded(true)
-        }
-    }, [])
 
     function loadingSeries() {
         let exoSeries = [];
@@ -83,9 +66,29 @@ function LandingPoster(props) {
             </div>
         )
     }
+
+    function loadingGeneras(heading) {
+        let exoSeries = [];
+        for (let i = 0; i < 8; i++) {
+            exoSeries.push(
+                <Link className="genera-box exo-genera-box action"></Link>
+            )
+        }
+        return (
+            <div className="genera-container">
+                <div className="genera-heading display-movie-heading">
+                    {heading}
+                </div>
+                <div className="genera-box-container">
+                    {exoSeries}
+                </div>
+            </div>
+        )
+    }
+
     return (
         <>
-
+            {console.log('dtco', ContextItems.offset)}
             {
                 ContextItems.trending.length > 0 ?
                     <>
@@ -102,7 +105,7 @@ function LandingPoster(props) {
                                             ContextItems.trending.map((element) => {
                                                 return (
                                                     <>
-                                                        <Link onClick={() => { TransferData(element, navigate) }} to={`/information/${element.netflix_id}`} key={element.netflix_id} className="initial-poster-item info-to-store">
+                                                        <Link onClick={() => { TransferData(navigate, element, ContextItems.setRelatedMovies, ContextItems.setRelatedSeries) }} to={`/information/${element.netflix_id}`} key={element.netflix_id} className="initial-poster-item info-to-store">
                                                             <div className="initial-poster-item-info-poster-container">
                                                                 <div className="initial-poster-item-info">
                                                                     <div className="title-container">
@@ -191,79 +194,37 @@ function LandingPoster(props) {
                                 Genera
                             </div>
                             <div className="genera-box-container">
-                                {/* <Link onClick={() => { ContextItems.setGenera([801362, 43048, 1365, 9584]) }} to={"/genera/action"} className="genera-box action">
-                                    Action
-                                    <img src={actionPoster} />
-                                </Link> */}
-                                <Link onClick={() => {TransferGenera([801362, 43048, 1365, 9584],'Action', ContextItems.generaData,ContextItems.setGeneraData, ContextItems.generaResult)}} to={"/genera/action"} className="genera-box action">
+                                <Link onClick={() => { TransferGenera([801362, 43048, 1365, 9584], 'Action', ContextItems.setGeneraData, ContextItems.generaResult) }} to={"/genera/action"} className="genera-box action">
                                     Action
                                     <img src={actionPoster} />
                                 </Link>
-                                <Link onClick={() => { TransferGenera([11014, 3276033, 6926, 108533, 1626246, 2729, 1568, 3327],'Alien Sci-Fi', ContextItems.generaData, ContextItems.setGeneraData, ContextItems.generaResult) }} to={"/genera/alien-sci-fi"} className="genera-box alien-sci-fi">
+                                <Link onClick={() => { TransferGenera([11014, 3276033, 6926, 108533, 1626246, 2729, 1568, 3327], 'Alien Sci-Fi', ContextItems.setGeneraData, ContextItems.generaResult) }} to={"/genera/alien-sci-fi"} className="genera-box alien-sci-fi">
                                     Alien Sci-Fi
                                     <img src={sciFiPoster} />
                                 </Link>
-                                <Link onClick={() => { TransferGenera([11881, 4698, 58879, 51058],'Animation', ContextItems.generaData, ContextItems.setGeneraData, ContextItems.generaResult) }} to={"/genera/animation"} className="genera-box animation">
+                                <Link onClick={() => { TransferGenera([11881, 4698, 58879, 51058], 'Animation', ContextItems.setGeneraData, ContextItems.generaResult) }} to={"/genera/animation"} className="genera-box animation">
                                     Animation
                                     <img src={animationPoster} />
                                 </Link>
-                                <Link onClick={() => { TransferGenera([2653, 7424, 1819777, 1819776, 2316199, 2867325, 9302, 452, 2729, 6721, 1522235, 81216565, 1522234, 1623841],'Anime', ContextItems.generaData, ContextItems.setGeneraData, ContextItems.generaResult) }} to={"/genera/anime"} className="genera-box anime">
+                                <Link onClick={() => { TransferGenera([2653, 7424, 1819777, 1819776, 2316199, 2867325, 9302, 452, 2729, 6721, 1522235, 81216565, 1522234, 1623841], 'Anime', ContextItems.setGeneraData, ContextItems.generaResult) }} to={"/genera/anime"} className="genera-box anime">
                                     Anime
                                     <img src={animePoster} />
                                 </Link>
-                                <Link onClick={() => { TransferGenera([7539, 10778, 1003219, 78163, 10375, 52847, 77599, 11039, 77230, 81216629, 11559, 7539],'Comedy', ContextItems.generaData, ContextItems.setGeneraData, ContextItems.generaResult) }} to={"/genera/comedy"} className="genera-box comedy">
+                                <Link onClick={() => { TransferGenera([7539, 10778, 1003219, 78163, 10375, 52847, 77599, 11039, 77230, 81216629, 11559, 7539], 'Comedy', ContextItems.setGeneraData, ContextItems.generaResult) }} to={"/genera/comedy"} className="genera-box comedy">
                                     Comedy
                                     <img src={comedyPoster} />
                                 </Link>
-                                <Link onClick={() => { TransferGenera([3652, 9875, 8673, 6839, 2243108, 4720, 5349, 4006, 90361, 48768, 7018, 10005, 49110, 2760, 180, 81050, 72384],'Documentaries', ContextItems.generaData, ContextItems.setGeneraData, ContextItems.generaResult) }} to={"/genera/documentaries"} className="genera-box documentaries">
+                                <Link onClick={() => { TransferGenera([3652, 9875, 8673, 6839, 2243108, 4720, 5349, 4006, 90361, 48768, 7018, 10005, 49110, 2760, 180, 81050, 72384], 'Documentaries', ContextItems.setGeneraData, ContextItems.generaResult) }} to={"/genera/documentaries"} className="genera-box documentaries">
                                     Documentaries
                                     <img src={documentriesPoster} />
                                 </Link>
-                                <Link onClick={() => { TransferGenera([10695, 8195, 90848, 48303, 10944, 45028, 9509, 89585, 8711, 83059, 10750, 4809, 1694, 1663282, 75804, 75930, 75405],'Horror Films', ContextItems.generaData, ContextItems.setGeneraData, ContextItems.generaResult) }} to={"/genera/horror-films"} className="genera-box horror-films">
+                                <Link onClick={() => { TransferGenera([10695, 8195, 90848, 48303, 10944, 45028, 9509, 89585, 8711, 83059, 10750, 4809, 1694, 1663282, 75804, 75930, 75405], 'Horror Films', ContextItems.setGeneraData, ContextItems.generaResult) }} to={"/genera/horror-films"} className="genera-box horror-films">
                                     Horror Films
                                     <img src={horrorFilmsPoster} />
                                 </Link>
-                                <Link onClick={() => { TransferGenera([869],'Dark Comedies', ContextItems.generaData, ContextItems.setGeneraData, ContextItems.generaResult) }} to={"/genera/dark-comedies"} className="genera-box dark-comedies">
+                                <Link onClick={() => { TransferGenera([869], 'Dark Comedies', ContextItems.setGeneraData, ContextItems.generaResult) }} to={"/genera/dark-comedies"} className="genera-box dark-comedies">
                                     Dark Comedies
                                     <img src={darkComedyPoster} />
-                                </Link>
-                            </div>
-                        </div>
-
-                        <div className="genera-container flag-container">
-                            <div className="genera-heading display-movie-heading">
-                                Countries
-                            </div>
-                            <div className="genera-box-container">
-                                <Link onClick={() => { ContextItems.setGenera([81418683, 9942, 5051, 10463, 59872]) }} to={"/genera/india"} className="flag-box">
-                                    <img src={indianFlag} alt="india" />
-                                </Link>
-                                {/* <Link onClick={() => { 
-                                    ContextItems.setGenera(genera['codes'] = [81418683, 9942,5051 ,10463, 59872])
-                                    ContextItems.setGenera(genera['name'] = 'action')
-                                     }} to={"/genera/india"} className="flag-box">
-                                    <img src={indianFlag} alt="india"/>
-                                </Link> */}
-                                <Link to="/" className="flag-box">
-                                    <img src={usFlag} alt="united-states" />
-                                </Link>
-                                <Link to="/" className="flag-box">
-                                    <img src={chinaFlag} alt="china" />
-                                </Link>
-                                <Link to="/" className="flag-box">
-                                    <img src={japanFlag} alt="japan" />
-                                </Link>
-                                <Link to="/" className="flag-box">
-                                    <img src={koreaFlag} alt="korea" />
-                                </Link>
-                                <Link to="/" className="flag-box">
-                                    <img src={spainFlag} alt="spain" />
-                                </Link>
-                                <Link to="/" className="flag-box">
-                                    <img src={germanyFlag} alt="germany" />
-                                </Link>
-                                <Link to="/" className="flag-box">
-                                    <img src={ukFlag} alt="united-kingdom" />
                                 </Link>
                             </div>
                         </div>
@@ -283,7 +244,7 @@ function LandingPoster(props) {
                                 {
                                     ContextItems.movies.slice(0, 50).map((element) => {
                                         return (
-                                            <Link style={{ width: 250 }} onClick={() => { TransferData(element) }} to={`/information/${element.netflix_id}`} key={element.netflix_id} className="display-movie-item info-to-store">
+                                            <Link style={{ width: 250 }} onClick={() => { TransferData(navigate, element, ContextItems.setRelatedMovies, ContextItems.setRelatedSeries) }} to={`/information/${element.netflix_id}`} key={element.netflix_id} className="display-movie-item info-to-store">
                                                 <div className="display-movie-poster">
                                                     <img src={element.poster} alt="poster" />
                                                 </div>
@@ -319,7 +280,7 @@ function LandingPoster(props) {
                                 {
                                     ContextItems.series.slice(0, 50).map((element) => {
                                         return (
-                                            <Link style={{ width: 250 }} onClick={() => { TransferData(element) }} to={`/information/${element.netflix_id}`} key={element.netflix_id} className="display-series-item info-to-store">
+                                            <Link style={{ width: 250 }} onClick={() => { TransferData(navigate, element, ContextItems.setRelatedMovies, ContextItems.setRelatedSeries) }} to={`/information/${element.netflix_id}`} key={element.netflix_id} className="display-series-item info-to-store">
                                                 <div className="display-series-poster">
                                                     <img src={element.poster} alt="poster" />
                                                 </div>
@@ -355,7 +316,7 @@ function LandingPoster(props) {
                                 {
                                     ContextItems.recents.map((element) => {
                                         return (
-                                            <Link style={{ width: 250 }} onClick={() => { TransferData(element) }} to={`/information/${element.netflix_id}`} key={element.netflix_id} className="display-series-item info-to-store">
+                                            <Link style={{ width: 250 }} onClick={() => { TransferData(navigate, element, ContextItems.setRelatedMovies, ContextItems.setRelatedSeries) }} to={`/information/${element.netflix_id}`} key={element.netflix_id} className="display-series-item info-to-store">
                                                 <div className="display-series-poster">
                                                     <img src={element.poster} alt="poster" />
                                                 </div>
@@ -415,6 +376,9 @@ function LandingPoster(props) {
                             </div>
                             <div className="loading-home-poster element-info-poster-container"></div>
                         </div>
+                        {
+                            loadingGeneras('genera')
+                        }
 
                         {
                             loadingSeries()

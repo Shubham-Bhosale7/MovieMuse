@@ -1,10 +1,12 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { StorageContext } from '../Context/StorageContext'
 
-function Footer(props) {
+function Footer() {                                
+    const ContextItems = useContext(StorageContext);
     return (
         <>
             {
-                props.loadDetector &&
+                ContextItems.loadDetector &&
                 <div className="footer">
                     <div className="social-link-list-container">
                         <ul className="social-link-list">
@@ -31,4 +33,4 @@ function Footer(props) {
     )
 }
 
-export default Footer
+export default Footer 

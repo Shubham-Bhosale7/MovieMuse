@@ -1,5 +1,5 @@
 import React from 'react'
-import Logo from "../Assets/quad-logo.png"
+import Logo from "../Assets/esther.png"
 import { Link } from "react-router-dom"
 import { useNavigate } from 'react-router-dom'
 import { StorageContext } from "../Context/StorageContext"

@@ -52,13 +52,15 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  height:100%;
+  height: 100%;
 }
-.nav-bar-poster-link{
+
+.nav-bar-poster-link {
   height: 100%;
   display: flex;
   align-items: center;
 }
+
 .nav-bar-logo img {
   width: 100px;
 }
@@ -245,7 +247,6 @@ body {
   font-weight: 554;
   display: flex;
   justify-content: space-between;
-  /* padding: 0 10px; */
   letter-spacing: -0.3px;
   align-items: center;
 }
@@ -258,8 +259,7 @@ body {
 .display-movie-poster,
 .display-series-poster,
 .element-info-poster {
-  height: 150px;
-  /* width: 240px; */
+  height: 170px;
   overflow: hidden;
   border-radius: 10px;
 }
@@ -408,7 +408,6 @@ body {
 .display-movie-item,
 .display-series-item {
   width: 250px;
-  /* margin-right: 15px; */
 }
 
 .display-movie-item img,
@@ -571,7 +570,7 @@ body {
 .carousel-element-info>a,
 .loading-screen-element-container {
   cursor: pointer;
-  height: 180px;
+  height: 190px;
   width: 100%;
   max-width: 240px;
   padding: 0 10px;
@@ -610,20 +609,6 @@ body {
   animation: glow 2s linear infinite alternate;
 }
 
-@keyframes glow {
-  0% {
-    background-color: #3f3f3f88;
-  }
-
-  50% {
-    background-color: #3f3f3f;
-  }
-
-  100% {
-    background-color: #252525;
-  }
-}
-
 .movie-name-rating-container,
 .series-name-rating-container {
   align-items: center;
@@ -652,6 +637,11 @@ body {
   height: calc(100% - 40px);
   border-radius: 5px;
   overflow: hidden;
+}
+
+.exo-movie-series-poster {
+  background: #3f3f3f;
+  animation: glow 2s linear infinite alternate;
 }
 
 .movie-poster img,
@@ -802,65 +792,73 @@ body {
   background-color: #3f3f3f;
   border-radius: 3px;
   height: inherit;
-  max-width:150px;
+  max-width: 150px;
   animation: glow 2s linear infinite alternate;
 }
-.loading-home-data-small-screen div:last-child{
-  width:75px;
+
+.loading-home-data-small-screen div:last-child {
+  width: 75px;
 }
-.loading-home-data-small-screen div:first-child{
-  margin-right:10px;
+
+.loading-home-data-small-screen div:first-child {
+  margin-right: 10px;
 }
-.exo-series-element{
+
+.exo-series-element {
   background-color: #3f3f3f;
   border-radius: 10px;
   animation: glow 2s linear infinite alternate;
-  margin:0 10px;
+  margin: 0 10px;
 }
-.no-result-poster,.error-poster-container{
+
+.no-result-poster,
+.error-poster-container {
   width: 100%;
   max-width: 400px;
   margin: auto;
 }
-.back-to-start{
+
+.back-to-start {
   text-align: center;
   font-weight: 554;
-  font-size:22px;
+  font-size: 22px;
 }
-.back-to-start-link{
-  /* color:var(--text-color); */
-  color:#54b9c5;
+
+.back-to-start-link {
+  color: #54b9c5;
 }
-.back-to-start-link i{
-  font-size:18px;
+
+.back-to-start-link i {
+  font-size: 18px;
   margin-bottom: 5px;
   position: relative;
   bottom: 1.1px;
   left: 4px;
 }
-.genera-container{
-  padding:0 2%;
+
+.genera-container {
+  padding: 0 2%;
 }
-.genera-heading{
+
+.genera-heading {
   padding: 10px 0;
 }
-.genera-box-container{
+
+.genera-box-container {
   display: grid;
   grid-template-columns: repeat(8, 1fr);
   justify-items: center;
-  /* column-gap: 10px;
-  row-gap:20px; */
-  gap:20px
+  gap: 20px
 }
-.genera-box,.flag-box{
+
+.genera-box,
+.flag-box {
   max-width: 200px;
-  font-size:17px;
+  font-size: 17px;
   font-weight: 600;
   width: 100%;
   height: 135px;
-  /* margin:10px ; */
   color: white;
-  background: red;
   border-radius: 4px;
   padding: 5px;
   box-sizing: border-box;
@@ -868,63 +866,92 @@ body {
   position: relative;
   overflow: hidden;
 }
-.genera-box img{
+
+.genera-box img {
   position: absolute;
-  width:50%;
-  height:60%;
+  width: 50%;
+  height: 60%;
   transform: rotate(27deg);
-  right:-10px;
-  bottom:-10px;
+  right: -10px;
+  bottom: -10px;
 }
-.action{
+
+.action {
   background-color: #FE0000;
 }
-.alien-sci-fi{
+
+.alien-sci-fi {
   background-color: #148a08;
 }
-.anime{
+
+.anime {
   background-color: #0F2167;
 }
-.animation{
+
+.animation {
   background-color: #FF4B91;
 }
-.comedy{
+
+.comedy {
   background-color: #FF9800;
 }
-.documentaries{
-  background-color:#445D48;
+
+.documentaries {
+  background-color: #445D48;
   background-color: #503C3C;
 }
-.horror-films{
+
+.horror-films {
   background-color: #22092C;
   background-color: #461959;
 }
-.dark-comedies{
+
+.dark-comedies {
   background-color: #20262E;
 }
-.flag-container{
-  margin-top:2rem;
+
+.flag-container {
+  margin-top: 2rem;
 }
-.flag-box{
-  background-color: transparent;
-  /* border:1px solid red; */
-  padding:0;
+
+.flag-container img {
+  width: 100%;
+  height: 100%;
 }
-.flag-container img{
-  width:100%;
-  height:100%;
+
+.exo-genera-box {
+  background-color: #3f3f3f;
+  padding: 0;
+  animation: glow 2s linear infinite alternate;
 }
-@media only screen and (max-width: 650px){
-  .genera-box-container{
+
+@keyframes glow {
+  0% {
+    background-color: #3f3f3f88;
+  }
+
+  50% {
+    background-color: #3f3f3f;
+  }
+
+  100% {
+    background-color: #252525;
+  }
+}
+
+@media only screen and (max-width: 650px) {
+  .genera-box-container {
     grid-template-columns: repeat(2, 1fr);
   }
 }
+
 @media only screen and (min-width: 650px) and (max-width: 1300px) {
-  .genera-box-container{
+  .genera-box-container {
     grid-template-columns: repeat(4, 1fr);
   }
-  
+
 }
+
 @media only screen and (max-width: 490px) {
   .movie-container-loading {
     display: block;
@@ -1033,8 +1060,8 @@ body {
     display: flex !important;
     width: 100% !important;
     flex-direction: row !important;
-  justify-content: space-between !important;
-  height:30px;
+    justify-content: space-between !important;
+    height: 30px;
   }
 }
 
@@ -1084,4 +1111,22 @@ body {
   .ham-menu-container {
     display: block;
   }
+}
+
+.loading-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  backdrop-filter: blur(10px);
+  background-color: transparent;
+  z-index: 999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loading-container img {
+  background-color: transparent;
 }

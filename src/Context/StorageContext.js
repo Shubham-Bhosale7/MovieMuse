@@ -1,10 +1,12 @@
-import React, { useState, createContext } from 'react';
-
+import React, { useState, createContext, useEffect } from 'react';
+import arrangeByRating from '../GeneralJs/ArrangeByRating';
+import Shuffler from '../GeneralJs/Shuffler';
+import { useNavigate } from 'react-router-dom';
 
 export const StorageContext = createContext();
 
 const StorageContextData = (props) => {
-    // const [data, setData] = useState([])
+    const navigate = useNavigate()
     const [query, setQuery] = useState('')
     const [searchQueryResults, setSearchQueryResults] = useState([])
 
@@ -13,6 +15,7 @@ const StorageContextData = (props) => {
     const [limit, setLimit] = useState(200)
     const [offset, setOffset] = useState(0)
     const [loadDetector, setLoadDetector] = useState(false)
+    const [loading, setLoading] = useState(false)
 
     const [trending, setTrending] = useState([])
     const [movies, setMovies] = useState([])
@@ -24,44 +27,89 @@ const StorageContextData = (props) => {
 
     const [generaElement, setGeneraElement] = useState([])
 
-    // const [genera, setGenera] = useState({})
-    // const [generaName, setGeneraName] = useState('')
-
     const [generaResult, setGeneraResult] = useState({}) // stores the fetched data of various generas
     const [generaLimit, setGeneraLimit] = useState(200)
 
 
     const [generaData, setGeneraData] = useState({}) // stores genera codes and name 
 
-    const [relatedShowsOffset, setRelatedShowsOffset] = useState(0)
-    const [relatedShowsMaxLimit, setRelatedShowsMaxLimit] = useState(0)
+    const [relatedMovesOffset, setRelatedMoviesOffset] = useState(0)
+    const [relatedSeriesOffset, setRelatedSeriesOffset] = useState(0)
 
-    //Update data on element info page
-    // function updateData(data) {
-    //     setData(data)
-    // }
+    const [relatedMoviesMaxLimit, setRelatedMoviesMaxLimit] = useState(0)
+    const [relatedSeriesMaxLimit, setRelatedSeriesMaxLimit] = useState(0)
 
-    //Shuffle fetched Data
-    // function Shuffler(arr) {
-    //     return arr.map(value => ({ value, sort: Math.random() })).sort((a, b) => a.sort - b.sort).map(({ value }) => value)
-    // }
+    const [movieAndSeriesOffset, setMovieAndSeriesOffset] = useState(0)
+    const [elementDataLoaded, setElementDataLoaded] = useState(false)
 
-    //Arrange Shows on home screen according to descending order of ratings
-    // function arrangeShow(a, b) {
-    //     return parseFloat(b.rating) - parseFloat(a.rating);
-    // }
+    const [isDataLoaded, setIsDataLoaded] = useState(false)
 
-    //Update data of search query
-    // function updateSearchQuery(fetchedQueryResults) {
-    //     setSearchQueryResults(fetchedQueryResults)
-    // }
 
-    //Update query when form is submitted before navigating to result page
-    // function updateQuery(queryValue) {
-    //     setQuery(queryValue)
-    // }
 
-    //Carousel for shows on display trending page (home page)
+    async function FetchData() {
+
+        let myHeaders = new Headers();
+        myHeaders.append("apikey", `${process.env.REACT_APP_API_KEY}`);
+
+        let requestOptions = {
+            method: 'GET',
+            redirect: 'follow',
+            headers: myHeaders
+        };
+
+        try {
+            let apiData = await fetch(`https://api.apilayer.com/unogs/search/titles?limit=${200}&offset=${offset}`, requestOptions)
+            let toJson = await apiData.json()
+            return toJson.results
+        } catch (error) {
+            navigate('/error')
+        }
+    }
+
+
+    async function fetchDataCaller() {
+
+        try {
+
+            setLoading(true)
+            setLoadDetector(false)
+            let moreData = await FetchData()
+
+            //setting trendings
+            let trendingShows = moreData.filter((element) => {
+                return element.poster.length > 3
+            }).sort(arrangeByRating).slice(0, 10)
+
+            setTrending(trending => trending.concat(trendingShows))
+
+            //setting movies
+            let newMovies = Shuffler(moreData).filter((element) => {
+                return element.poster.length > 3 && element.title_type === 'movie'
+            })
+            setMovies(movies => movies.concat(newMovies))
+
+            //setting series
+            let newSeries = Shuffler(moreData).filter((element) => {
+                return element.poster.length > 3 && element.title_type === 'series'
+            })
+            setSeries(series => series.concat(newSeries))
+
+            let newRecents = moreData.filter((item) => {
+                return item.poster.length > 0
+            })
+                .sort(function (a, b) {
+                    return new Date(a.title_date) - new Date(b.title_date)
+                })
+                .slice(0, 50)
+            setRecents(recents => recents.concat(newRecents))
+            setOffset(offset + 200)
+            setLoading(false)
+            setLoadDetector(true)
+        } catch (error) {
+            navigate('/error')
+        }
+    }
+
     const displayShowSettings = {
         dots: false,
         infinite: false,
@@ -98,11 +146,17 @@ const StorageContextData = (props) => {
         document.querySelector(".search-bar-small-screen").classList.toggle('search-bar-small-screen-visible')
     }
 
-    //Check if data is already there
-    const [isDataLoaded, setIsDataLoaded] = useState(false)
+    useEffect(() => {
+        if ((movies.length == 0 && series.length == 0 && trending.length == 0 && recents.length == 0)) {
+            fetchDataCaller()
+        }
+    }, [])
 
     return (
-        <StorageContext.Provider value={{ data,setData, searchQueryResults, query, displayShowSettings, movieAndSeriesSettings, handleHamCross, handleSearchIcon, isDataLoaded, setIsDataLoaded,progress, setProgress,limit, setLimit,loadDetector, setLoadDetector, offset, setOffset, setQuery, trending, setTrending, movies, setMovies, series, setSeries, recents, setRecents,relatedMovies, setRelatedMovies, relatedSeries, setRelatedSeries,generaElement, setGeneraElement, generaResult, setGeneraResult, generaLimit, setGeneraLimit, generaData, setGeneraData, relatedShowsOffset, setRelatedShowsOffset, relatedShowsMaxLimit, setRelatedShowsMaxLimit }}>
+        <StorageContext.Provider value={{
+            data, setData, searchQueryResults, query, displayShowSettings, movieAndSeriesSettings, handleHamCross, handleSearchIcon, isDataLoaded, setIsDataLoaded, progress, setProgress, limit, setLimit, loadDetector, setLoadDetector, offset, setOffset, setQuery, trending, setTrending, movies, setMovies, series, setSeries, recents, setRecents, relatedMovies, setRelatedMovies, relatedSeries, setRelatedSeries, generaElement, setGeneraElement, generaResult, setGeneraResult, generaLimit, setGeneraLimit, generaData, setGeneraData, relatedMovesOffset, setRelatedMoviesOffset, relatedSeriesOffset, setRelatedSeriesOffset, relatedMoviesMaxLimit, setRelatedMoviesMaxLimit, relatedSeriesMaxLimit, setRelatedSeriesMaxLimit, movieAndSeriesOffset, setMovieAndSeriesOffset, elementDataLoaded, setElementDataLoaded, searchQueryResults, setSearchQueryResults,
+            loading, setLoading,
+        }}>
             {props.children}
         </StorageContext.Provider>
     );

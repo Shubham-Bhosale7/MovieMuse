@@ -6,6 +6,7 @@ import TransferData from '../GeneralJs/TransferData'
 import GenreAndMovieFetcher from '../GeneralJs/GenreAndMovieFetcher'
 import { StorageContext } from '../Context/StorageContext'
 import { useNavigate } from 'react-router-dom'
+import loadingScreen from "../GeneralJs/LoadingMoviesAndSeries"
 
 function Movie(props) {
     const ContextItems = useContext(StorageContext)
@@ -15,7 +16,8 @@ function Movie(props) {
         try {
             props.setProgress(40)
             props.setLoadDetector(false)
-            let fetchedData = await GenreAndMovieFetcher(navigate, ContextItems.relatedShowsOffset, ContextItems.setRelatedShowsOffset, ContextItems.relatedShowsMaxLimit)
+            let fetchedData = await GenreAndMovieFetcher(navigate, ContextItems.movieAndSeriesOffset, ContextItems.setMovieAndSeriesOffset, ContextItems.relatedMovesOffset, ContextItems.setRelatedMoviesOffset, ContextItems.relatedSeriesOffset, ContextItems.setRelatedSeriesOffset, ContextItems.setRelatedMoviesMaxLimit, ContextItems.setRelatedSeriesMaxLimit)
+
             let movies = fetchedData.filter((element) => {
                 return element.title_type === 'movie'
             })
@@ -30,7 +32,6 @@ function Movie(props) {
             props.setLoadDetector(true)
             props.setProgress(100)
         } catch (error) {
-            console.log('error', error)
             navigate('/error')
         }
     }
@@ -39,13 +40,15 @@ function Movie(props) {
             if (ContextItems.relatedMovies.length == 0 && ContextItems.relatedSeries.length == 0) {
                 props.setProgress(40)
                 props.setLoadDetector(false)
-                let fetchedData = await GenreAndMovieFetcher(navigate, ContextItems.relatedShowsOffset, ContextItems.setRelatedShowsOffset, ContextItems.relatedShowsMaxLimit)
+                let fetchedData = await GenreAndMovieFetcher(navigate, ContextItems.movieAndSeriesOffset, ContextItems.setMovieAndSeriesOffset, ContextItems.relatedMovesOffset, ContextItems.setRelatedMoviesOffset, ContextItems.relatedSeriesOffset, ContextItems.setRelatedSeriesOffset, ContextItems.setRelatedMoviesMaxLimit, ContextItems.setRelatedSeriesMaxLimit)
+
                 let movies = fetchedData.filter((element) => {
                     return element.title_type === 'movie'
                 })
                 console.log('REL MOVIES', movies)
                 let series = fetchedData.filter((element) => {
                     return element.title_type === 'series'
+                    
                 })
                 let existingMovies = ContextItems.relatedMovies
                 let existingSeries = ContextItems.relatedSeries
@@ -58,7 +61,6 @@ function Movie(props) {
                 // Data is already there dont need to fetch again.
             }
         } catch (e) {
-            console.log(e)
             navigate('/error')
         }
     }
@@ -78,7 +80,7 @@ function Movie(props) {
                                     {
                                         ContextItems.relatedSeries.map((element) => {
                                             return (
-                                                <Link onClick={() => { TransferData(element) }} to={`/information/${element.netflix_id}`} key={element.netflix_id} className="movie-item info-to-store">
+                                                <Link onClick={() => { TransferData(navigate, element, ContextItems.setRelatedMovies, ContextItems.setRelatedSeries) }} to={`/information/${element.netflix_id}`} key={element.netflix_id} className="movie-item info-to-store">
                                                     <div className="movie-poster">
                                                         {element.poster.length > 3 ? <img src={element.poster} alt="poster" /> : <img src={Server} alt="poster" />}
                                                     </div>
@@ -100,7 +102,7 @@ function Movie(props) {
                             </div>
                         </div>
                         {
-                            ContextItems.relatedShowsOffset < ContextItems.relatedShowsMaxLimit ?
+                            ContextItems.relatedSeriesOffset < ContextItems.relatedSeriesMaxLimit ?
                                 <div className="movie-show-more-btn-container">
                                     <button onClick={fetchMore} className="movie-show-more-btn">
                                         <span>Show More</span>
@@ -111,15 +113,16 @@ function Movie(props) {
                                 <div className="movie-show-more-btn-container">
                                     <button className="movie-show-more-btn">
                                         <span>Thats all</span>
-                                        {/* <i class="fa-solid fa-angle-down"></i> */}
                                     </button>
                                 </div>
                         }
                     </>
                     :
-                    <div>
-
-                    </div>
+                    <>
+                    {
+                        loadingScreen()
+                    }
+                </>
             }
         </>
     )

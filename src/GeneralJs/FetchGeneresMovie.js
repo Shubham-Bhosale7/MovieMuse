@@ -1,5 +1,6 @@
 // Takes genres as an argument and fetch data according to that
-async function FetchGeneresMovie(generes, offset, setOffset, setMax) {
+async function FetchGeneresMovie(generes, movieAndSeriesOffset, setMovieAndSeriesOffset, relatedMovesOffset, setRelatedMoviesOffset, relatedSeriesOffset, setRelatedSeriesOffset, setRelatedMoviesMaxLimit, setRelatedSeriesMaxLimit) {
+    // This function takes in a list of genera code and use the codes to fetch the elements of the codes.
 
     var myHeaders = new Headers();
     myHeaders.append("apikey", `${process.env.REACT_APP_API_KEY}`);
@@ -9,19 +10,24 @@ async function FetchGeneresMovie(generes, offset, setOffset, setMax) {
         redirect: 'follow',
         headers: myHeaders
     };
-
-    let apiData = await fetch(`https://api.apilayer.com/unogs/search/titles?genre_list=${generes}&limit=200&offset=${offset}`, requestOptions)
+    let apiData = await fetch(`https://api.apilayer.com/unogs/search/titles?genre_list=${generes}&limit=200&offset=${movieAndSeriesOffset}`, requestOptions)
     let toJson = await apiData.json()
-    // console.log('FLAG3', toJson)
     let results = toJson.results
-    let newOffset = offset + 100
-    // console.log('FLAG 4', offset)
-    setOffset(newOffset)
-    // console.log('FLAG5', newOffset)
-    let maxLimit = toJson.Object['total']
-    // console.log('FLAG6', maxLimit)
-    setMax(maxLimit)
-    console.log('FLAG Y', results)
+    setMovieAndSeriesOffset(movieAndSeriesOffset + 200)
+    setRelatedMoviesOffset(relatedMovesOffset + 200)
+    setRelatedSeriesOffset(relatedSeriesOffset + 200)
+    let maxMoviesLimit = 0
+    let maxSeriesLimit = 0
+    results.map((item) => {
+        if (item.title_type == 'movies') {
+            maxMoviesLimit += 1
+        }
+        else {
+            maxSeriesLimit += 1
+        }
+    })
+    setRelatedMoviesMaxLimit(maxMoviesLimit)
+    setRelatedSeriesMaxLimit(maxSeriesLimit)
     return results
 }
 

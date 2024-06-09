@@ -1,15 +1,12 @@
-async function TransferGenera(generaCodes, generaName,generaData ,setGeneraData, generaResult){
+async function TransferGenera(generaCodes, generaName, setGeneraData, generaResult) {
 
-    if (generaResult[generaName]){
-        console.log('if','RESULTS: ', generaResult, 'DATA: ', generaData)
-    }
-    else{
-        console.log('else','RESULTS: ', generaResult, 'DATA: ', generaData)
-        let name = generaName 
+    if (generaResult[generaName]) { }
+    else {
+        let name = generaName
         let codes = generaCodes
-        let data = {'name': name, 'codes': codes}
+        let data = { 'name': name, 'codes': codes }
         let stringifiedData = await JSON.stringify(data)
-        await sessionStorage.setItem('data',stringifiedData)
+        await sessionStorage.setItem('data', stringifiedData)
         await setGeneraData(data)
     }
 }

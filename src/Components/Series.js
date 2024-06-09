@@ -1,10 +1,11 @@
-import React, {useContext, useEffect} from 'react'
+import React, {useContext} from 'react'
 import Server from "../Assets/server.png"
 import { Link } from 'react-router-dom'
 import TransferData from '../GeneralJs/TransferData'
 import { useNavigate } from 'react-router-dom'
 import fetchDataCaller from '../GeneralJs/FetchDataCaller'
 import { StorageContext } from '../Context/StorageContext'
+import loadingScreen from "../GeneralJs/LoadingMoviesAndSeries"
 
 function Series(props) {
     const navigate = useNavigate()
@@ -13,24 +14,31 @@ function Series(props) {
 
     async function fetchMoreData() {
         try {
-            fetchDataCaller(ContextItems.setIsDataLoaded, props.setProgress, ContextItems.setData,ContextItems.movies, ContextItems.setMovies,ContextItems.series,  ContextItems.setSeries,ContextItems.trending, ContextItems.setTrending,ContextItems.recents, ContextItems.setRecents, ContextItems.offset, ContextItems.setOffset)
+            fetchDataCaller(
+                ContextItems.setLoadDetector,
+                props.setProgress,
+                ContextItems.movies,
+                ContextItems.setMovies,
+                 ContextItems.series, 
+                ContextItems.setSeries,
+                 ContextItems.trending,
+                 ContextItems.setTrending,
+                 ContextItems.recents,
+                 ContextItems.setRecents,
+                 ContextItems.offset,
+                ContextItems.setOffset, 
+                navigate
+            )
         } catch (error) {
             console.log('ERROR',error)
             navigate('/error')
         }
     }
 
-    useEffect(() => { //try to set movies, series, and recents in a context state so we dont need to do same operation over and over, This can be done by fetching the resources and performing the necessary operations and setting the context
-        if (!ContextItems.isDataLoaded) {
-            fetchDataCaller(ContextItems.setIsDataLoaded, props.setProgress, ContextItems.setData, ContextItems.movies, ContextItems.setMovies,ContextItems.series, ContextItems.setSeries,ContextItems.trending,  ContextItems.setTrending,ContextItems.recents, ContextItems.setRecents, ContextItems.offset, ContextItems.setOffset)
-            ContextItems.setIsDataLoaded(true)
-        }
-    }, [])
-
     return (
         <>
             {
-                ContextItems.series.length > 0 &&
+                ContextItems.series.length > 0 ?
                 <>
                     <div className="series-container">
                         <div className="wrapper-series">
@@ -38,7 +46,7 @@ function Series(props) {
                                 {
                                     ContextItems.series.map((element) => {
                                         return (
-                                            <Link onClick={() => { TransferData(element) }} to={`/information/${element.netflix_id}`} key={element.netflix_id} className="series-item info-to-store">
+                                            <Link onClick={() => { TransferData(navigate, element, ContextItems.setRelatedMovies, ContextItems.setRelatedSeries) }} to={`/information/${element.netflix_id}`} key={element.netflix_id} className="series-item info-to-store">
                                                 <div className="series-poster">
                                                     {element.poster.length > 3 ? <img src={element.poster} alt="poster" /> : <img src={Server} alt="poster" />}
                                                 </div>
@@ -65,6 +73,12 @@ function Series(props) {
                             <i className="fa-solid fa-angle-down"></i>
                         </button>
                     </div>
+                </>
+                :
+                <>
+                {
+                    loadingScreen()
+                }
                 </>
             }
         </>

@@ -1,6 +1,8 @@
 //Transfer data of movie or show into session storage when it is clicked.
-async function TransferData(element,navigate) {
+async function TransferData(navigate, element, setRelatedMovies, setRelatedSeries) {
     try {
+        setRelatedMovies([])
+        setRelatedSeries([])
         let data = {
             imdb_id: element.imdb_id,
             netflix_id: element.netflix_id,
@@ -14,6 +16,7 @@ async function TransferData(element,navigate) {
             top250: element.top250,
             top250tv: element.top250tv
         }
+        console.log('d', data)
         await sessionStorage.setItem('movieInfo', `${JSON.stringify(data)}`)
     } catch (error) {
         navigate('/error')

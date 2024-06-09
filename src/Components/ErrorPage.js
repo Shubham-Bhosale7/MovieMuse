@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react'
 import ErrorPoster from "../Assets/errorpage.svg"
 import { Link } from 'react-router-dom'
-function ErrorPage() {
+function ErrorPage(props) {
   useEffect(() => {
-    console.log('iam a error page')
+    props.setProgress(0)
   })
   return (
     <div className='error-poster-container'>

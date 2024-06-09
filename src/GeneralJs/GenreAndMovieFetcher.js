@@ -2,21 +2,17 @@
 import FetchGeneresMovie from "./FetchGeneresMovie";
 import FetchGeneres from "./FetchGenres";
 
-async function GenreAndMovieFetcher(navigate, offset, setoffset, setMax) {
-  try{
+async function GenreAndMovieFetcher(navigate, movieAndSeriesOffset, setMovieAndSeriesOffset, relatedMovesOffset, setRelatedMoviesOffset, relatedSeriesOffset, setRelatedSeriesOffset, setRelatedMoviesMaxLimit, setRelatedSeriesMaxLimit, setElementDataLoaded) {
+  try {
     let netflix_id = await JSON.parse(sessionStorage.getItem('movieInfo')).netflix_id;
     let results = await FetchGeneres(netflix_id)
-    console.log('GENERAS FOR RESULTS',results)
     let generesRefactor = results.map((element) => {
       return element.genre_id
     })
-    console.log('FLAG1')
-    let generesMovie = await FetchGeneresMovie(generesRefactor, offset, setoffset, setMax) 
-    console.log('FLAGX')
-    console.log('FLAG2', generesMovie)
+    let generesMovie = await FetchGeneresMovie(generesRefactor, movieAndSeriesOffset, setMovieAndSeriesOffset, relatedMovesOffset, setRelatedMoviesOffset, relatedSeriesOffset, setRelatedSeriesOffset, setRelatedMoviesMaxLimit, setRelatedSeriesMaxLimit, setElementDataLoaded)
     return generesMovie
   }
-  catch(error){
+  catch (error) {
     navigate('/error')
   }
 
