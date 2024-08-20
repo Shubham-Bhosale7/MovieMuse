@@ -70,7 +70,6 @@ const StorageContextData = (props) => {
     async function fetchDataCaller() {
 
         try {
-
             setLoading(true)
             setLoadDetector(false)
             let moreData = await FetchData()
@@ -106,6 +105,7 @@ const StorageContextData = (props) => {
             setLoading(false)
             setLoadDetector(true)
         } catch (error) {
+            console.log('ERROR CAUTH')
             navigate('/error')
         }
     }

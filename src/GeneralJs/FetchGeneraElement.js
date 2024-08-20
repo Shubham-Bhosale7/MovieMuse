@@ -21,11 +21,11 @@ async function FetchGeneraElement(setProgress, setLoadDetector, navigate, genera
                 redirect: 'follow',
                 headers: myHeaders
             };
-            let apiData = await fetch(`https://api.apilayer.com/unogs/search/titles?genre_list=${generaCodes}&limit=${100}&offset=${0}`, requestOptions)
+            let apiData = await fetch(`https://api.apilayer.com/unogs/search/titles?genre_list=${generaCodes}&limit=${100}`, requestOptions)
             let toJson = await apiData.json()
             let final = toJson.results
 
-            let data = { 'elements': final, 'offset': 0, 'limit': 100, 'max': toJson.Object['total'] }
+            let data = { 'elements': final, 'limit': 100, 'max': toJson.Object['total'] }
             generaResult[generaName] = data
 
             setProgress(100)

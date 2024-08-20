@@ -23,10 +23,7 @@ function GeneraElement(props) {
             let parsedData = JSON.parse(storageData)
             let generaCodes = parsedData['codes']
             let generaName = parsedData['name']
-
             let limit = generaResult[generaName]['limit'] + 100
-            let offset = generaResult[generaName]['offset'] + 100
-
 
             var myHeaders = new Headers();
             myHeaders.append("apikey", `${process.env.REACT_APP_API_KEY}`);
@@ -37,15 +34,17 @@ function GeneraElement(props) {
                 headers: myHeaders
             };
 
-            let apiData = await fetch(`https://api.apilayer.com/unogs/search/titles?genre_list=${generaCodes}&limit=${limit}&offset=${offset}`, requestOptions)
+            let apiData = await fetch(`https://api.apilayer.com/unogs/search/titles?genre_list=${generaCodes}&limit=${limit}`, requestOptions)
 
             let toJson = await apiData.json()
             let final = toJson.results
 
-            let existingData = generaResult[generaName]['elements']
-            let newData = existingData.concat(final)
 
-            let data = { 'elements': newData, 'offset': offset, 'limit': limit, 'max': toJson.Object['total'] }
+            let existingData = generaResult[generaName]['elements']
+            // let newData = existingData.concat(final)
+            let newData = final
+
+            let data = { 'elements': newData, 'limit': limit, 'max': toJson.Object['total'] }
             generaResult[generaName] = data
 
             setProgress(100)
@@ -62,6 +61,7 @@ function GeneraElement(props) {
         let parsedData = await JSON.parse(storageData)
 
         let generaName = parsedData['name']
+        // console.log('GENERA NOW ', generaName)
         setCurrentGenera(generaName)
         await FetchGeneraElement(props.setProgress, props.setLoadDetector, navigate, ContextItems.generaData, ContextItems.generaResult)
 
@@ -77,7 +77,8 @@ function GeneraElement(props) {
             {
                 isDataLoaded ?
                     ContextItems.generaResult[currentGenera]['elements'].length > 0 ?
-                        <>
+                    <>
+                    {/* {console.log('CODE 000', currentGenera, ContextItems.generaResult)} */}
                             <div className="movie-container">
                                 <div className="wrapper-movie">
                                     <div className="carousel-movie">

@@ -304,7 +304,7 @@ function LandingPoster() {
                         <div className="display-series-container">
                             <div className="display-series-heading">
                                 <div className="display-series-heading-title">
-                                    New
+                                    Recents
                                 </div>
                                 <div className="display-series-heading-show-more">
                                     <Link to="/recents">

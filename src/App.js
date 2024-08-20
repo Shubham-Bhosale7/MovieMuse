@@ -20,6 +20,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import ErrorPage from './Components/ErrorPage';
 import GeneraElement from './Components/GeneraElement';
+import NewPrograms from './Components/NewPrograms';
 
 
 function App() {
@@ -46,6 +47,7 @@ function App() {
             <Route exact path="/search_results/:query" element={<SearchQueryResults setProgress={setProgress} setLoadDetector={setLoadDetector} />} />
             <Route exact path="/error" element={<ErrorPage setProgress={setProgress} />} />
             <Route exact path="/genera/:genera" element={<GeneraElement setProgress={setProgress} setLoadDetector={setLoadDetector} />} />
+            <Route exact path="/recents" element={<NewPrograms />} />      
           </Routes>
           <Footer />
         </StorageContextData>
