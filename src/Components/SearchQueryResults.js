@@ -20,7 +20,6 @@ function SearchQueryResult(props) {
             props.setLoadDetector(false)
             props.setProgress(40)
             let fetchedData = await FetchByQuery(query)
-            console.log('QUERY RESULT', fetchedData)
             fetchedData === null ? ContextItems.setSearchQueryResults([]) : ContextItems.setSearchQueryResults(fetchedData)
             props.setProgress(100)
             props.setLoadDetector(true)

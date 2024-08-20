@@ -21,7 +21,6 @@ function Movie(props) {
             let movies = fetchedData.filter((element) => {
                 return element.title_type === 'movie'
             })
-            console.log('REL MOVIES', movies)
             let series = fetchedData.filter((element) => {
                 return element.title_type === 'series'
             })
@@ -45,7 +44,6 @@ function Movie(props) {
                 let movies = fetchedData.filter((element) => {
                     return element.title_type === 'movie'
                 })
-                console.log('REL MOVIES', movies)
                 let series = fetchedData.filter((element) => {
                     return element.title_type === 'series'
                     

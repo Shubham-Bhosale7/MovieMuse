@@ -16,7 +16,6 @@ async function TransferData(navigate, element, setRelatedMovies, setRelatedSerie
             top250: element.top250,
             top250tv: element.top250tv
         }
-        console.log('d', data)
         await sessionStorage.setItem('movieInfo', `${JSON.stringify(data)}`)
     } catch (error) {
         navigate('/error')

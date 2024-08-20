@@ -88,7 +88,6 @@ function LandingPoster() {
 
     return (
         <>
-            {console.log('dtco', ContextItems.offset)}
             {
                 ContextItems.trending.length > 0 ?
                     <>

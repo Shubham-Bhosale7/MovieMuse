@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import Server from "../Assets/server.png"
 import GenreAndMovieFetcher from '../GeneralJs/GenreAndMovieFetcher'

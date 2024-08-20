@@ -8,9 +8,7 @@ import TransferData from '../GeneralJs/TransferData'
 function NewPrograms() {
     const ContextItems = useContext(StorageContext)
     return (
-        <>{
-            console.log('INITIATED: ', ContextItems.trending)
-        }
+        <>
             {
                 ContextItems.recents.length > 0 &&
                 <>
@@ -41,12 +39,6 @@ function NewPrograms() {
                             </div>
                         </div>
                     </div>
-                    {/* <div className="movie-show-more-btn-container">
-                        <button onClick={fetchMoreData} className="movie-show-more-btn">
-                            <span>Show More</span>
-                            <i className="fa-solid fa-angle-down"></i>
-                        </button>
-                    </div> */}
                 </>
             }
         </>

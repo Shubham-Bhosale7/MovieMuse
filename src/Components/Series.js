@@ -30,7 +30,6 @@ function Series(props) {
                 navigate
             )
         } catch (error) {
-            console.log('ERROR', error)
             navigate('/error')
         }
     }

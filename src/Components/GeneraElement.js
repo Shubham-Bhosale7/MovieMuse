@@ -39,9 +39,6 @@ function GeneraElement(props) {
             let toJson = await apiData.json()
             let final = toJson.results
 
-
-            let existingData = generaResult[generaName]['elements']
-            // let newData = existingData.concat(final)
             let newData = final
 
             let data = { 'elements': newData, 'limit': limit, 'max': toJson.Object['total'] }
@@ -61,7 +58,6 @@ function GeneraElement(props) {
         let parsedData = await JSON.parse(storageData)
 
         let generaName = parsedData['name']
-        // console.log('GENERA NOW ', generaName)
         setCurrentGenera(generaName)
         await FetchGeneraElement(props.setProgress, props.setLoadDetector, navigate, ContextItems.generaData, ContextItems.generaResult)
 
@@ -78,7 +74,6 @@ function GeneraElement(props) {
                 isDataLoaded ?
                     ContextItems.generaResult[currentGenera]['elements'].length > 0 ?
                     <>
-                    {/* {console.log('CODE 000', currentGenera, ContextItems.generaResult)} */}
                             <div className="movie-container">
                                 <div className="wrapper-movie">
                                     <div className="carousel-movie">
