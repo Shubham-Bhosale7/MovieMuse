@@ -1,70 +1,52 @@
-# Getting Started with Create React App
+# Esther ![Esther logo](https://raw.githubusercontent.com/shivdutt-B/Esther/main/src/Snapshots/favicon.ico)
+"Discover comprehensive information about movies and websites in one convenient place."
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+[Esther](https://esther-beta.vercel.app/)
 
-## Available Scripts
+# Screenshot
+![snap-shot-1](https://github.com/shivdutt-B/Esther/blob/main/src/Snapshots/s1_home.png)
 
-In the project directory, you can run:
+---
 
-### `npm start`
+![snap-shot-2](https://github.com/shivdutt-B/Esther/blob/main/src/Snapshots/s2_genera_movies.png)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+---
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+![snap-shot-3](https://github.com/shivdutt-B/Esther/blob/main/src/Snapshots/s3_series_new.png)
 
-### `npm test`
+---
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+![snap-shot-4](https://github.com/shivdutt-B/Esther/blob/main/src/Snapshots/s4_all_movies.png)
 
-### `npm run build`
+---
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+![snap-shot-5](https://github.com/shivdutt-B/Esther/blob/main/src/Snapshots/s5_search_results.png)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+# Technologies Used
+- html
+- css
+- javascript
+- reactjs
 
-### `npm run eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+# Description
+Welcome to Esther, your ultimate destination for everything related to movies and series! Whether you're a cinephile, a TV show enthusiast, or just looking for your next binge-worthy watch, Esther has got you covered.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+# Features
+- Offers details such as title, type, runtime, Netflix ID, IMDb ID, rating, and release date for a wide range of web series and movies.
+- Categorize results by type (movies or series), as well as by release date and genre.
+- Discover movies and shows by exploring different genres.
+- Includes a search feature allowing users to find their favorite movies and shows.
+- Features a responsive design that adapts to various screen sizes.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+# Clone the repository
+`git clone https://github.com/shivdutt-B/Esther.git`
 
-## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+# Acknowledgements
+Thanks to [apilayer](https://apilayer.com/) for providing such flexible api. 
 
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+# Note
+<b>If the website is not working, it might be because the monthly limit of 3,000 API calls has been reached. Additionally, the APIs are somewhat slow, which may cause the website to have longer loading times.</b>
