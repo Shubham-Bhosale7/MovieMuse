@@ -2,7 +2,7 @@
 async function fetchGeneres(netflix_id) {
 
      var myHeaders = new Headers();
-     myHeaders.append("apikey", `${process.env.REACT_APP_API_KEY}`);
+     myHeaders.append("apikey", `c98JcNXxEUlHpsP5c53Wf3vtY3EXvC1g`);
  
      var requestOptions = {
          method: 'GET',

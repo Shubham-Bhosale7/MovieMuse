@@ -3,7 +3,7 @@ async function FetchGeneresMovie(generes, movieAndSeriesOffset, setMovieAndSerie
     // This function takes in a list of genera code and use the codes to fetch the elements of the codes.
 
     var myHeaders = new Headers();
-    myHeaders.append("apikey", `${process.env.REACT_APP_API_KEY}`);
+    myHeaders.append("apikey", `c98JcNXxEUlHpsP5c53Wf3vtY3EXvC1g`);
 
     var requestOptions = {
         method: 'GET',

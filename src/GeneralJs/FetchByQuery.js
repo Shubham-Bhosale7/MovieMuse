@@ -2,7 +2,7 @@
 async function FetchByQuery(query) {
 
     let myHeaders = new Headers();
-    myHeaders.append("apikey", `${process.env.REACT_APP_API_KEY}`);
+    myHeaders.append("apikey", `c98JcNXxEUlHpsP5c53Wf3vtY3EXvC1g`);
 
     let requestOptions = {
         method: 'GET',
